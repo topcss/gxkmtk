@@ -7,7 +7,7 @@
     <ProjectGuid>{226B8491-8C6D-495D-818D-0D2CF46E385D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Gxkm</RootNamespace>
-    <AssemblyName>Gxkm</AssemblyName>
+    <AssemblyName>全国公需科目题库</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -30,6 +30,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -89,6 +92,8 @@
   <ItemGroup>
     <None Include="Resources\Interop.SHDocVw.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
