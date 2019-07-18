@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 
 namespace Gxkm
 {
@@ -20,9 +21,42 @@ namespace Gxkm
         {
             InitializeComponent();
 
+            // 启用 ie11 模式，低版本ie显示有问题
+            IEVersion.SetWebBrowserFeatures(11);
+
+            // 打开题库网站
             webBrowser1.Url = new Uri("https://gongxukemu.cn/search.html");
+            webBrowser1.DocumentCompleted += WebBrowser1_DocumentCompleted;
         }
 
+        /// <summary>
+        /// 去广告
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WebBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            try
+            {
+                var web = (WebBrowser)sender;
+
+                var javascript = @"
+var style = document.createElement('style'); 
+style.type = 'text/css'; 
+style.innerHTML ='.side_right_box,.breadcrumb,.header-top,.footer { display: none; } .search_box {border: 1px solid #000;}'; 
+document.getElementsByTagName('head')[0].appendChild(style);
+";
+                webBrowser1.Document.InvokeScript("eval", new object[] { javascript });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 改请求头
+        /// </summary>
         private void Wb_BeforeNavigate2(object pDisp, ref object URL, ref object Flags, ref object TargetFrameName, ref object PostData, ref object Headers, ref bool Cancel)
         {
             var postDataText = System.Text.Encoding.ASCII.GetString(PostData as byte[]);
@@ -61,30 +95,58 @@ namespace Gxkm
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var url = "https://github.com/topcss/gxkmtk";
+            var taobao = "https://shop495155500.taobao.com";
 
-            var result = MessageBox.Show($@"
-全国公需科目考试题库 无限搜索版
+            var result = MsgBox.Show(
+$@"全国公需科目考试题库 无限搜索版
+用于查询全国各地区历年公需科目考试答案。
 
-请有钱的老哥，还是去支持下官网的作者吧。
+开源地址：{url}
+Copyright ©2019 爱脑图团队", "关于",
+
+$@"收集题库，运维网站都不容易。
+请有钱的老哥，还是去支持下题库官网的作者吧。
 我看他淘宝店的收入，才几百块钱，可怜的同行。
+你评职了是要赚大钱的，请去支持这个帮你节省时间的家伙吧。
 
-{url}
-Copyright ©2019 爱脑图团队
-", "关于", MessageBoxButtons.YesNo);
-
+题库淘宝地址：{taobao}", MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, false,
+                new[] { "打开开源项目", "打赏题库作者", "哪儿也不去" });
             if (result == DialogResult.Yes)
             {
-                try
-                {
-                    Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", url);
-                }
-                catch (Exception)
-                {
-                    Process.Start("iexplore.exe", url);
-                }
+                OpenUrl(url);
+            }
+            else if (result == DialogResult.No)
+            {
+                OpenUrl(taobao);
             }
         }
 
+        /// <summary>
+        /// 打开url，默认用chrome浏览器
+        /// </summary>
+        /// <param name="url"></param>
+        private void OpenUrl(string url)
+        {
+            var path = string.Empty;
+
+            var chromePath = @"{0}:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
+            if (File.Exists(string.Format(chromePath, "C")))
+            {
+                path = string.Format(chromePath, "C");
+            }
+            else if (File.Exists(string.Format(chromePath, "D")))
+            {
+                path = string.Format(chromePath, "D");
+            }
+
+            if (string.IsNullOrEmpty(path))
+            {
+                path = "iexplore.exe";
+            }
+
+            Process.Start(path, url);
+        }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -94,5 +156,6 @@ Copyright ©2019 爱脑图团队
                 Environment.Exit(0);
             }
         }
+
     }
 }

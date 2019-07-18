@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("全国公需科目题库 无限搜索版")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("爱脑图团队")]
-[assembly: AssemblyProduct("全国公需科目题库")]
+[assembly: AssemblyProduct("查询全国各地区历年公需科目考试答案")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
