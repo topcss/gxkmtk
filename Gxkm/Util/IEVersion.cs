@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Win32;
 
-namespace Gxkm
+namespace Gxkm.Util
 {
     public class IEVersion
     {

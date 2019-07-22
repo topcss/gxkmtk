@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using Gxkm.Util;
 
 namespace Gxkm
 {

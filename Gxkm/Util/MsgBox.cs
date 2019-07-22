@@ -8,7 +8,7 @@ using System.Threading;
 using System.Windows.Forms;
 
 // https://github.com/ahdung/MessageBoxEx
-namespace Gxkm
+namespace Gxkm.Util
 {
     /// <summary>
     /// 可以携带详细信息的消息框
