@@ -2,4 +2,4 @@
 
 用于查询全国各地区历年公需科目考试答案。
 
-![主界面截图](screenshot/main.png)
+![主界面录屏](screenshot/run.gif)
