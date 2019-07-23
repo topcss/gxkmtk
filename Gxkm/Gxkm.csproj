@@ -7,7 +7,7 @@
     <ProjectGuid>{226B8491-8C6D-495D-818D-0D2CF46E385D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Gxkm</RootNamespace>
-    <AssemblyName>全国公需科目题库</AssemblyName>
+    <AssemblyName>公需科目考试神器</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
